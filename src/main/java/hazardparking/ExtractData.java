@@ -17,11 +17,8 @@ public class ExtractData  {
         data = extract();
     }
     private static ArrayList<Entry> extract() throws Exception{
-        //get resource from file system
-        ApplicationContext context = new AnnotationConfigApplicationContext();
-        File file = new ClassPathResource("data/parking.csv").getFile();
         //Define buffered reader for reading file
-
+        File file = new ClassPathResource("data/parking.csv").getFile();
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         br.readLine();
