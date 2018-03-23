@@ -13,6 +13,11 @@ public class RouteController {
 
     private static final String template = "Hello, %s!";
     @RequestMapping("/")
+    public String tempHome(){
+        return "Home Page coming soon tm";
+    }
+    //
+    @RequestMapping("/data")
     public ArrayList<Entry> tickets(){
         ArrayList<Entry> data = ExtractData.getData();
         return data;

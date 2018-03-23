@@ -45,7 +45,7 @@ public class ExtractData  {
                 tempdate = LocalDateTime.of(Integer.parseInt(splitinfo[18].substring(0, 4)),Integer.parseInt(splitinfo[18].substring(5, 7)), Integer.parseInt(splitinfo[18].substring(8, 10)),00,Integer.parseInt(splitinfo[8]));
             }
 
-            entries.add(new Entry(Float.parseFloat((splitinfo[0])),Float.parseFloat(splitinfo[0]),splitinfo[4],tempdate,splitinfo[9],splitinfo[10],splitinfo[11]));
+            entries.add(new Entry(Float.parseFloat((splitinfo[0])),Float.parseFloat(splitinfo[1]),splitinfo[4],tempdate,splitinfo[9],splitinfo[10],splitinfo[11]));
             entryinfo = br.readLine();
 
         }
