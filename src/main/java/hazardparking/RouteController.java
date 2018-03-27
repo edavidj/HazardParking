@@ -1,6 +1,10 @@
 package hazardparking;
 
+import java.io.File;
 import java.util.*;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class RouteController {
 
     private static final String template = "Hello, %s!";
-    @RequestMapping("/")
+
+    /**
+     * This route is for testing any back end methods adjust it to suite needs
+     * @param q this is an optional query parameter, if you need an input when sending
+     *              the request from the browser append ?q=(your value) to the url
+     * @return The output you would like to send back, change the method type to suite this.s
+     */
+    @RequestMapping("/test")
+    public String Test(@RequestParam(value="q", defaultValue="") String q) throws Exception{
+        return "index";
+    }
+
+    /**
+     *
+     * @return static data object representing the csv file
+     */
+    @RequestMapping("/data")
     public ArrayList<Entry> tickets(){
         ArrayList<Entry> data = ExtractData.getData();
         return data;
