@@ -32,8 +32,19 @@ public class RouteController {
      *
      * @return static data object representing the csv file
      */
+    @RequestMapping("/points")
+    public double[][] points(){
+        Entry[] data = ExtractData.getData();
+        double[][] out = new double[data.length][3];
+
+        for (int i = 0; i < data.length; i++){
+            Point point = new Point(data[i].getY(),data[i].getX(), 0.05);
+            out[i] = point.getHeatPoint();
+        }
+        return out;
+    }
     @RequestMapping("/data")
-    public Entry[] tickets(){
+    public Entry[] data(){
         Entry[] data = ExtractData.getData();
         return data;
     }
@@ -46,8 +57,6 @@ public class RouteController {
     @RequestMapping("/sort")
     public boolean sort(){
         Entry[] data = ExtractData.getData();
-
-
         Sort.sort(data);
 
         return Sort.isSorted(data);

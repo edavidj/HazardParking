@@ -6,7 +6,7 @@ function closeNav(){
 }
 // ========== LEAFLET INITIALIZE ===========
 /**
- * [long,lat], zoomLevel
+ * [y,x], zoomLevel
  */
 var mymap = L.map('mapid').setView(L.latLng(38.9027, -77.0369), 11);
 
@@ -16,3 +16,14 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'mapbox.streets',
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
+// ========= LEAFLET COMPONENTS ============
+var heat;
+$(document).ready(function(){
+    $.ajax({
+        type:"GET",
+        url:"/points",
+        success: function(response){
+            heat = L.heatLayer(response, {radius: 25}).addTo(mymap);
+        }
+    });
+});
