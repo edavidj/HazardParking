@@ -57,9 +57,11 @@ public class RouteController {
     @RequestMapping("/sort")
     public boolean sort(){
         Entry[] data = ExtractData.getData();
-        Sort.sort(data);
 
-        return Sort.isSorted(data);
+
+        Sort.sort(data, 1);
+
+        return Sort.isSorted(data, 1);
     }
     
 }
