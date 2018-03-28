@@ -39,7 +39,7 @@ public class Sort {
 		 * @param mid divide between two sections being merged
 		 * @param high upper end of the bounds
 		 */
-		public static void merge(ArrayList<Entry> a, int low, int mid, int high){
+		private static void merge(ArrayList<Entry> a, int low, int mid, int high){
 			int i = low; int j = mid+1;
 			//clone array into temp
 			for(int k = low; k <= high; k++){
@@ -59,7 +59,6 @@ public class Sort {
 				else {
 					a.set(k, aux.get(i++));
 				}
-				
 			}
 		}
 		/**
@@ -68,8 +67,7 @@ public class Sort {
 		 * @param b date being compared to
 		 * @return true if less false if not
 		 */
-		public static boolean less(Entry a, Entry b) {
-			
+		private static boolean less(Entry a, Entry b) {
 			return a.getDate().compareTo(b.getDate()) < 0;
 			//return a.compareTo(b) < 0;
 		}
