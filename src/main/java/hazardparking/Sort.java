@@ -8,14 +8,14 @@ import java.util.ArrayList;
  * 
  */
 public class Sort {
-		public static ArrayList<Entry> aux;
+		public static Entry[] aux;
 		/**
 		 * exported sorting function calls on recursive version
 		 * @param a LocalDateTime[] array to be sorted
 		 */
-		public static void sort(ArrayList<Entry> a){
-			aux = new ArrayList<Entry>();
-			sort(a, 0, a.size() - 1);
+		public static void sort(Entry[] a){
+			aux = new Entry[a.length];
+			sort(a, 0, a.length-1);
 		}
 		/**
 		 * recursive merge sort function
@@ -23,7 +23,7 @@ public class Sort {
 		 * @param low int lower end of bounds
 		 * @param high int upper end of bounds
 		 */
-		private static void sort(ArrayList<Entry> a, int low, int high){
+		private static void sort(Entry[] a, int low, int high){
 			if(high <= low) return; //base case for finished sorting
 			int mid = low +(high-low)/2;
 			//divide into parts and sort
@@ -39,25 +39,25 @@ public class Sort {
 		 * @param mid divide between two sections being merged
 		 * @param high upper end of the bounds
 		 */
-		private static void merge(ArrayList<Entry> a, int low, int mid, int high){
+		public static void merge(Entry[] a, int low, int mid, int high){
 			int i = low; int j = mid+1;
 			//clone array into temp
 			for(int k = low; k <= high; k++){
-				aux.set(k, a.get(k));
+				aux[k] = a[k];
 			}
 			//modify array to merge sections
 			for(int k = low; k <= high; k++){
 				if (i > mid) {
-					a.set(k, aux.get(j++));
+					a[k] = aux[j++];
 				}
 				else if(j > high) {
-					a.set(k, aux.get(i++));
+					a[k] = aux[i++];
 				}
-				else if (less(aux.get(j), aux.get(i))) {
-					a.set(k, aux.get(j++));
+				else if (less(aux[j], aux[i])) {
+					a[k] = aux[j++];
 				}
 				else {
-					a.set(k, aux.get(i++));
+					a[k] = aux[i++];
 				}
 			}
 		}
@@ -72,9 +72,9 @@ public class Sort {
 			//return a.compareTo(b) < 0;
 		}
 		
-		public static boolean isSorted(ArrayList<Entry> a) {
-			for (int i = 1; i <= a.size(); i++) {
-				if (less(a.get(i),a.get(i-1))) {
+		public static boolean isSorted(Entry[] a) {
+			for (int i = 1; i <= a.length-1; i++) {
+				if (less(a[i],a[i-1])) {
 					return false;
 				}
 			}

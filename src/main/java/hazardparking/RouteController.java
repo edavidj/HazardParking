@@ -17,7 +17,7 @@ public class RouteController {
 
     private static final String template = "Hello, %s!";
 
-    /**
+    /*
      * This route is for testing any back end methods adjust it to suite needs
      * @param q this is an optional query parameter, if you need an input when sending
      *              the request from the browser append ?q=(your value) to the url
@@ -33,8 +33,8 @@ public class RouteController {
      * @return static data object representing the csv file
      */
     @RequestMapping("/data")
-    public ArrayList<Entry> tickets(){
-        ArrayList<Entry> data = ExtractData.getData();
+    public Entry[] tickets(){
+        Entry[] data = ExtractData.getData();
         return data;
     }
     //example commented out below
@@ -43,4 +43,14 @@ public class RouteController {
 //        return new Greeting(counter.incrementAndGet(),
 //                            String.format(template, name));
 //    }
+    @RequestMapping("/sort")
+    public boolean sort(){
+        Entry[] data = ExtractData.getData();
+
+
+        Sort.sort(data);
+
+        return Sort.isSorted(data);
+    }
+    
 }

@@ -1,0 +1,40 @@
+html{
+    height:100%;
+}
+#mapid {
+    height: 100%;
+    width:100%;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+}
+#sidenav{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000000001;
+    top: 0;
+    left: 0;
+    background-color:#efefef;
+    overflow: hidden;
+    padding-top:60px;
+    transition:0.5s;
+}
+#closeTab{
+    right:0;
+    position: absolute;
+    top:40%;
+    font-size: 2.5em;
+    z-index: 1000000002;
+    cursor: pointer;
+}
+#openTab{
+    left:0;
+    position: absolute;
+    top: 40%;
+    font-size: 2.5em;
+    z-index: 1000000000;
+    cursor: pointer;
+}
+
+
