@@ -38,7 +38,7 @@ public class RouteController {
         double[][] out = new double[data.length][3];
 
         for (int i = 0; i < data.length; i++){
-            Point point = new Point(data[i].getY(),data[i].getX(), 0.05);
+            Point point = new Point(data[i].getY(),data[i].getX(), 0.015);
             out[i] = point.getHeatPoint();
         }
         return out;
