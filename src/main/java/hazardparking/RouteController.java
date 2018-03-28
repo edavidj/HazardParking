@@ -48,9 +48,9 @@ public class RouteController {
         Entry[] data = ExtractData.getData();
 
 
-        Sort.sort(data);
+        Sort.sort(data, 1);
 
-        return Sort.isSorted(data);
+        return Sort.isSorted(data, 1);
     }
     
 }
