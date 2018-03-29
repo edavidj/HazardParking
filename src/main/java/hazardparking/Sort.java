@@ -92,7 +92,7 @@ public class Sort {
 
 			return stringCodeA.compareTo(stringCodeB) < 0;
 		}
-		else if (option == 4)
+		else if (option == 4)		//option 4 is comparing it by day of week
 		{
 			DayOfWeek DayA = a.getDate().getDayOfWeek();
 			DayOfWeek DayB = b.getDate().getDayOfWeek();
