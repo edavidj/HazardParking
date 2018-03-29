@@ -8,7 +8,7 @@ function closeNav(){
 /**
  * [y,x], zoomLevel
  */
-var mymap = L.map('mapid').setView(L.latLng(38.9027, -77.0369), 11);
+var mymap = L.map('mapid').setView(L.latLng(38.9027, -77.0369), 14);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWRhdmlkaiIsImEiOiJjamZhbzd4MzkwN3ppMzNtaXo2ZWo2cjNhIn0.ehBPDgUGJhDT_DYwX8fOog', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -18,7 +18,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(mymap);
 // ========= LEAFLET COMPONENTS ============
 var heat;
-$(document).ready(function(){
+$(document).ready(function(){ //once all elements have loaded calls this
+    //use this method to send requests to the server adjusting url and changing the success function
     $.ajax({
         type:"GET",
         url:"/points",

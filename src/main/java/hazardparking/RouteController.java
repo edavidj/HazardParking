@@ -28,10 +28,6 @@ public class RouteController {
         return "index";
     }
 
-    /**
-     *
-     * @return static data object representing the csv file
-     */
     @RequestMapping("/points")
     public double[][] points(){
         Entry[] data = ExtractData.getData();
@@ -43,6 +39,10 @@ public class RouteController {
         }
         return out;
     }
+    /**
+     *
+     * @return static data object representing the csv file
+     */
     @RequestMapping("/data")
     public Entry[] data(){
         Entry[] data = ExtractData.getData();
