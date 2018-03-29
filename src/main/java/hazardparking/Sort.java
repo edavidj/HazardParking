@@ -91,7 +91,13 @@ public class Sort {
 			String stringCodeB = b.getViolationCode();
 
 			return stringCodeA.compareTo(stringCodeB) < 0;
+		}
+		else if (option == 4)
+		{
+			DayOfWeek DayA = a.getDate().getDayOfWeek();
+			DayOfWeek DayB = b.getDate().getDayOfWeek();
 
+			return DayA.compareTo(DayB) < 0;
 		}
 		return true;
 	}
