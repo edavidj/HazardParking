@@ -2,7 +2,7 @@ package hazardparking;
 
 import java.time.*;
 /**
- * Test of basic entry object
+ * Entry Object for the dataset, simple getters and setters and protected variables
  * @author Ethan Johnston
  *
  */

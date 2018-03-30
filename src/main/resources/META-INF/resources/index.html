@@ -14,9 +14,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.js"></script>
     <script src="/js/leaflet-heat.js"></script>
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <script src="/js/jquery-ui.min.js"></script>
 </head>
 <body>
 <div id="sidenav">
+    <div class="ui form">
+        <div class="field">
+            <div class="ui category search dropdown">
+                <div class="ui icon input">
+                    <input id="searchInput" class="prompt" type="text" placeholder="Filter by...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="scrolling menu results"></div>
+            </div>
+        </div>
+    </div>
     <div id="closeTab" onclick="closeNav()"><i class="icon angle left"></i></div>
 </div>
 <div id="openTab" onclick="openNav()"><i class="icon angle right"></i></div>

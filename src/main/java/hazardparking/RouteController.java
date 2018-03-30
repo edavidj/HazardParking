@@ -1,3 +1,7 @@
+/**
+ * @author Ethan Johnston
+ * This class is for controlling the request routes on the web app server.
+ */
 package hazardparking;
 
 import java.io.File;
@@ -9,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author Ethan Johnston
- */
 @RestController
 public class RouteController {
 
@@ -24,8 +25,8 @@ public class RouteController {
      * @return The output you would like to send back, change the method type to suite this.s
      */
     @RequestMapping("/test")
-    public String Test(@RequestParam(value="q", defaultValue="") String q) throws Exception{
-        return "index";
+    public String[] Test(@RequestParam(value="q", defaultValue="") String q) throws Exception{
+        return ExtractData.getViolationReasons();
     }
 
     @RequestMapping("/points")
@@ -63,5 +64,46 @@ public class RouteController {
 
         return Sort.isSorted(data, 1);
     }
-    
+
+    /**
+     * Gets the suggestions for the input text box and formats them for the front end frameworks dropdown tool
+     * https://semantic-ui.com/modules/search.html#/usage "Server Responses - Category" for format example
+     * @param q the string to suggest for
+     * @return an anonymous object matching the format of the json object required by semantic ui search module
+     */
+    @RequestMapping("/categories")
+    public Object categories(@RequestParam(value="q") String q){
+        return new Object(){
+            public final Object category1 = getSuggestions(q, ExtractData.getViolationReasons(), "Reasons");
+            public final Object category2 = getSuggestions(q, ExtractData.getViolationCodes(), "Codes");
+        };
+    }
+
+    /**
+     * Local method for filtering out strings that do not contain the query string and formatting them for the json out     *
+     * @param q passed query string from parent method
+     * @param items list of items being search against
+     * @param categoryName the name of the category to create
+     * @return an anonymous object matching the format for semantic ui's search module
+     */
+    private Object getSuggestions(String q, String[] items, String categoryName){
+        ArrayList<Object> out = new ArrayList<>();
+        for(int i = 0; i < items.length; i++) {
+            if(!items[i].toLowerCase().contains(q.toLowerCase()))
+                continue;
+            String item = items[i];
+            final String finalItem;
+            if(item.length()>20)    finalItem = item.substring(0,17)+"...";
+            else                    finalItem = item;
+            out.add(new Object() {
+                public final String description = categoryName.substring(0,categoryName.length()- 1);
+                public final String title = finalItem;
+            });
+        }
+        return new Object(){
+            public final ArrayList<Object> results = out;
+            public final String name = categoryName;
+        };
+    }
 }
+

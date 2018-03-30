@@ -1,7 +1,5 @@
 package hazardparking;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
@@ -13,8 +11,12 @@ import java.util.ArrayList;
  */
 public class ExtractData  {
 	private static Entry[] data;
+	private static String[] violationReasons;
+	private static String[] violationCodes;
 	public static void init() throws Exception{
         data = extract();
+        violationReasons = getUniqueReasons();
+        violationCodes = getUniqueuCodes();
     }
     private static Entry[] extract() throws Exception{
         //Define buffered reader for reading file
@@ -63,5 +65,38 @@ public class ExtractData  {
     }
     public static void setData(Entry[] newData) {
         data = newData;
+    }
+
+    public static String[] getViolationReasons() {
+        return violationReasons;
+    }
+
+    public static void setViolationReasons(String[] violationReasons) {
+        ExtractData.violationReasons = violationReasons;
+    }
+
+    public static String[] getViolationCodes() {
+        return violationCodes;
+    }
+
+    public static void setViolationCodes(String[] violationCodes) {
+        ExtractData.violationCodes = violationCodes;
+    }
+
+    private static String[] getUniqueReasons(){
+        ArrayList<String> out = new ArrayList<>();
+        for(Entry i : data){
+            if(!out.contains(i.getViolationReason()))
+                out.add(i.getViolationReason());
+        }
+        return out.stream().toArray(String[]::new);
+    }
+    private static String[] getUniqueuCodes(){
+        ArrayList<String> out = new ArrayList<>();
+        for(Entry i : data){
+            if(!out.contains(i.getViolationCode()))
+                out.add(i.getViolationCode());
+        }
+        return out.stream().toArray(String[]::new);
     }
 }

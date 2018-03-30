@@ -1,6 +1,7 @@
 package hazardparking;
 
 /**
+ * @author Ethan Johnston
  * @brief this class is an object for representing points in the heatmap
  */
 public class Point {

@@ -1,5 +1,5 @@
 function openNav(){
-    $("#sidenav").css("width","250px");
+    $("#sidenav").css("width","350px");
 }
 function closeNav(){
     $("#sidenav").css("width","0");
@@ -17,7 +17,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 // ========= LEAFLET COMPONENTS ============
-var heat;
+var heat, categoryContent;
 $(document).ready(function(){ //once all elements have loaded calls this
     //use this method to send requests to the server adjusting url and changing the success function
     $.ajax({
@@ -28,3 +28,19 @@ $(document).ready(function(){ //once all elements have loaded calls this
         }
     });
 });
+$(".ui.search").search({
+    apiSettings:{
+        url:"/categories?q={query}",
+        onResponse: function(res){
+            console.log(res);
+            return {
+                results: res
+            }
+        }
+    },
+    type:"category",
+    showNoResults:"true"
+});
+function searchHandler(){
+
+}

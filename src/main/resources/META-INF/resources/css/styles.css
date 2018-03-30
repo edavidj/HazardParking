@@ -15,10 +15,17 @@ html{
     z-index: 1000000001;
     top: 0;
     left: 0;
-    background-color:#efefef;
+    background-color: #e0e0e0;
     overflow: hidden;
     padding-top:60px;
     transition:0.5s;
+    border-right: 1px #555 solid;
+}
+.results.menu.scrollable{
+    overflow-x:visible !important;
+}
+.ui.form{
+    overflow-x:visible !important;
 }
 #closeTab{
     right:0;
@@ -35,6 +42,15 @@ html{
     font-size: 2.5em;
     z-index: 1000000000;
     cursor: pointer;
+}
+.ui.icon.search{
+    width:85% !important;
+}
+.ui.form{
+    width:85%;
+    overflow-x: visible;
+    margin-left:10%;
+    margin-top:5%;
 }
 
 
