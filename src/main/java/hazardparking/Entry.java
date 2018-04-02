@@ -53,4 +53,5 @@ public class Entry {
     public String getStreet(){
         return this.street;
     }
+
 }

@@ -1,8 +1,10 @@
 function openNav(){
-    $("#sidenav").css("width","350px");
+    $("#sidenav").css("display","block");
+    $("#searchInput").css("display","block");
 }
 function closeNav(){
-    $("#sidenav").css("width","0");
+    $("#sidenav").css("display","none");
+    $("#searchInput").css("display","none");
 }
 // ========== LEAFLET INITIALIZE ===========
 /**
@@ -17,7 +19,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 // ========= LEAFLET COMPONENTS ============
-var heat, categoryContent;
+var heat;
 $(document).ready(function(){ //once all elements have loaded calls this
     //use this method to send requests to the server adjusting url and changing the success function
     $.ajax({
@@ -41,6 +43,22 @@ $(".ui.search").search({
     type:"category",
     showNoResults:"true"
 });
+$("#searchInput").keydown(function(e){
+    if(e.which === 13){
+        searchHandler();
+    }
+});
 function searchHandler(){
-
+    var query = $("#searchInput").val();
+    $.ajax({
+        type:"GET",
+        url:"/filter/violationCode",
+        data:{
+            q: query
+        },
+        success: function(response){
+            console.log(response);
+            heat.setLatLngs(response);
+        }
+    });
 }
