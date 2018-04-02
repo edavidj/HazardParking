@@ -41,6 +41,24 @@ $(".ui.search").search({
     type:"category",
     showNoResults:"true"
 });
+$("#searchInput").keydown(function(e){
+    if(e.which === 13){
+        searchHandler();
+    }
+});
 function searchHandler(){
-
+    var query = $("#searchInput").val();
+    console.log(query);
+    $.ajax({
+        type:"GET",
+        url:"/filter/violationCode",
+        data:{
+            q: query
+        },
+        success: function(response){
+            console.log(response);
+            heat.setLatLngs(response);
+            //TODO: set heatmap to response and redraw
+        }
+    });
 }
