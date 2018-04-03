@@ -43,6 +43,12 @@ $(".ui.search").search({
     type:"category",
     showNoResults:"true"
 });
+$('.ui.accordion')
+    .accordion()
+;
+$("a.result").on("click",function(e){
+    searchHandler();
+});
 $("#searchInput").keydown(function(e){
     if(e.which === 13){
         searchHandler();

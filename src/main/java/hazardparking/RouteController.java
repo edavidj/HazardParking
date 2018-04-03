@@ -25,6 +25,10 @@ public class RouteController {
         return ExtractData.getViolationReasons();
     }
 
+    /**
+     * Query used for initial loading of the heatmap
+     * @return array of heatpoints corresponding to the entire data set
+     */
     @RequestMapping("/points")
     public double[][] points(){
         Entry[] data = ExtractData.getData();
@@ -32,7 +36,7 @@ public class RouteController {
         return out;
     }
     /**
-     *
+     * test for dataset/return entire dataset to front end
      * @return static data object representing the csv file
      */
     @RequestMapping("/data")
@@ -40,6 +44,11 @@ public class RouteController {
         Entry[] data = ExtractData.getData();
         return data;
     }
+
+    /**
+     * test for sorting data
+     * @return
+     */
     @RequestMapping("/sort")
     public boolean sort(){
         Entry[] data = ExtractData.getData();
@@ -63,6 +72,12 @@ public class RouteController {
         Entry[] filtered = Filter.violationCode(data, code);
         return  ExtractData.convertEntriesToHeat(filtered);
     }
+
+    /**
+     * Filter heatpoints to a specific day of the week
+     * @param day the day of the week that is being filtered by
+     * @return new heatpoints corresponding to the filtered data
+     */
     @RequestMapping("/filter/weekDay")
     public double[][] filterByDay(@RequestParam(value="q") String day){
         Entry[] data = ExtractData.getData();

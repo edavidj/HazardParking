@@ -13,10 +13,11 @@ public class ExtractData  {
 	private static Entry[] data;
 	private static String[] violationReasons;
 	private static String[] violationCodes;
-	private static HashMap<String, String> Violations;
+	private static HashMap<String, String> Violations; //for conversion of reasons to codes
 	public static void init() throws Exception{
-        data = extract();
+        data = extract(); //read data from csv
         Violations = new HashMap<>();
+        //set exported variables
         violationReasons = getUniqueReasons();
         violationCodes = getUniqueCodes();
         setViolationData();
@@ -53,7 +54,7 @@ public class ExtractData  {
         }
         return entries;
     }
-
+    //GETTERS AND SETTERS
     public static Entry[] getData() {
         return data;
     }
@@ -63,19 +64,22 @@ public class ExtractData  {
     public static void setData(Entry[] newData) {
         data = newData;
     }
-
     public static String[] getViolationReasons() {
         return violationReasons;
-    }
-    public static void setViolationReasons(String[] violationReasons) {
-        ExtractData.violationReasons = violationReasons;
     }
     public static String[] getViolationCodes() {
         return violationCodes;
     }
+    public static void setViolationReasons(String[] violationReasons) {
+        ExtractData.violationReasons = violationReasons;
+    }
     public static void setViolationCodes(String[] violationCodes) {
         ExtractData.violationCodes = violationCodes;
     }
+
+    /**
+     * Set the hashmap for converting between violation reasons and codes easily
+     */
     private static void setViolationData(){
         for(int i = 0; i < violationReasons.length;i++){
             if(Violations.get(violationReasons[i]) == null){
@@ -83,9 +87,20 @@ public class ExtractData  {
             }
         }
     }
+
+    /**
+     * Convert violation reason to a corresponding violation code
+     * @param reason the reason being converted
+     * @return the violation code for this reason
+     */
     public static String convertReason(String reason){
         return Violations.get(reason);
     }
+
+    /**
+     * used on init to create array of reasons which is used for searching and suggesting items on frontend
+     * @return array of the unique violation reasons
+     */
     private static String[] getUniqueReasons(){
         ArrayList<String> out = new ArrayList<>();
         for(Entry i : data){
@@ -94,6 +109,10 @@ public class ExtractData  {
         }
         return out.stream().toArray(String[]::new);
     }
+    /**
+     * used on init to create array of codes which is used for searching and suggesting items on frontend
+     * @return array of the unique violation codes
+     */
     private static String[] getUniqueCodes(){
         ArrayList<String> out = new ArrayList<>();
         for(Entry i : data){
@@ -102,6 +121,12 @@ public class ExtractData  {
         }
         return out.stream().toArray(String[]::new);
     }
+
+    /**
+     * Create an array of heatpoint items
+     * @param entries array of entries to be converted
+     * @return array of heatpoints of the form [double longitude,double latitude, double intensity]
+     */
     public static double[][] convertEntriesToHeat(Entry[] entries){
         double[][] out = new double[entries.length][3];
         for (int i = 0; i < entries.length; i++){
