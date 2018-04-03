@@ -55,9 +55,19 @@ public class RouteController {
      */
     @RequestMapping("/filter/violationCode")
     public double[][] filterByViolationCode(@RequestParam(value="q") String code){
+        String[] a = ExtractData.getViolationCodes();
+        if(!Arrays.asList(a).contains(code)){
+            code = ExtractData.convertReason(code);
+        }
         Entry[] data = ExtractData.getData();
-        Entry[] filtered = Filter.violationCode(data,code);
+        Entry[] filtered = Filter.violationCode(data, code);
         return  ExtractData.convertEntriesToHeat(filtered);
+    }
+    @RequestMapping("/filter/weekDay")
+    public double[][] filterByDay(@RequestParam(value="q") String day){
+        Entry[] data = ExtractData.getData();
+        Entry[] filtered = Filter.day(data, day);
+        return ExtractData.convertEntriesToHeat(filtered);
     }
     //============ UI ROUTES AND METHODS  ==============
     /**
@@ -68,9 +78,11 @@ public class RouteController {
      */
     @RequestMapping("/categories")
     public Object categories(@RequestParam(value="q") String q){
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         return new Object(){
             public final Object category1 = getSuggestions(q, ExtractData.getViolationReasons(), "Reasons");
             public final Object category2 = getSuggestions(q, ExtractData.getViolationCodes(), "Codes");
+            public final Object category3 = getSuggestions(q, weekDays, "Days");
         };
     }
     /**
@@ -86,14 +98,9 @@ public class RouteController {
             if(!items[i].toLowerCase().contains(q.toLowerCase())) //if q is not substring do not add to results
                 continue;
             String item = items[i];
-            //anonymous objects require variables to be final for some reason so had to create new final for condition
-            final String finalItem;
-            //shorten string to stop it from making ui look janky
-            if(item.length()>20)    finalItem = item.substring(0,17)+"...";
-            else                    finalItem = item;
             out.add(new Object() {
                 public final String description = categoryName.substring(0,categoryName.length()- 1);
-                public final String title = finalItem;
+                public final String title = item;
             });
         }
         return new Object(){

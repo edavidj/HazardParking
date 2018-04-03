@@ -19,6 +19,7 @@
 </head>
 <body>
 <div id="sidenav">
+    <div id="closeTab" onclick="closeNav()"><i class="icon close"></i></div>
     <div class="ui form">
         <div class="field">
             <div class="ui category search dropdown">
@@ -26,11 +27,11 @@
                     <input id="searchInput" class="prompt" type="text" placeholder="Filter by...">
                     <i class="search icon"></i>
                 </div>
-                <div class="scrolling menu results"></div>
+                <div id="results" class="scrolling menu results"></div>
             </div>
         </div>
     </div>
-    <div id="closeTab" onclick="closeNav()"><i class="icon angle left"></i></div>
+
 </div>
 <div id="openTab" onclick="openNav()"><i class="icon angle right"></i></div>
 <div id="mapid"></div>

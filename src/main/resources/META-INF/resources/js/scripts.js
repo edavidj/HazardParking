@@ -1,8 +1,10 @@
 function openNav(){
-    $("#sidenav").css("width","350px");
+    $("#sidenav").css("display","block");
+    $("#searchInput").css("display","block");
 }
 function closeNav(){
-    $("#sidenav").css("width","0");
+    $("#sidenav").css("display","none");
+    $("#searchInput").css("display","none");
 }
 // ========== LEAFLET INITIALIZE ===========
 /**
@@ -17,7 +19,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 // ========= LEAFLET COMPONENTS ============
-var heat, categoryContent;
+var heat;
 $(document).ready(function(){ //once all elements have loaded calls this
     //use this method to send requests to the server adjusting url and changing the success function
     $.ajax({
@@ -47,18 +49,22 @@ $("#searchInput").keydown(function(e){
     }
 });
 function searchHandler(){
+    var weekDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
     var query = $("#searchInput").val();
-    console.log(query);
+    var url = "/filter/violationCode";
+    if(weekDays.indexOf(query.toLowerCase()) !== -1){
+        url = "/filter/weekDay";
+    }
+    console.log(url);
     $.ajax({
         type:"GET",
-        url:"/filter/violationCode",
+        url:url,
         data:{
             q: query
         },
         success: function(response){
             console.log(response);
             heat.setLatLngs(response);
-            //TODO: set heatmap to response and redraw
         }
     });
 }

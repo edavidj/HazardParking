@@ -123,5 +123,4 @@ public class Filter {
         }
         return Arrays.copyOfRange(data, bottom, top);
     }
-
 }

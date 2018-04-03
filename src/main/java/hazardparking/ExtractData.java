@@ -4,7 +4,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * @author Steven Luu, Rico Florentino & Ethan Johnston
@@ -13,10 +13,13 @@ public class ExtractData  {
 	private static Entry[] data;
 	private static String[] violationReasons;
 	private static String[] violationCodes;
+	private static HashMap<String, String> Violations;
 	public static void init() throws Exception{
         data = extract();
+        Violations = new HashMap<>();
         violationReasons = getUniqueReasons();
         violationCodes = getUniqueCodes();
+        setViolationData();
     }
     private static Entry[] extract() throws Exception{
         //Define buffered reader for reading file
@@ -73,7 +76,16 @@ public class ExtractData  {
     public static void setViolationCodes(String[] violationCodes) {
         ExtractData.violationCodes = violationCodes;
     }
-
+    private static void setViolationData(){
+        for(int i = 0; i < violationReasons.length;i++){
+            if(Violations.get(violationReasons[i]) == null){
+                Violations.put(violationReasons[i],violationCodes[i]);
+            }
+        }
+    }
+    public static String convertReason(String reason){
+        return Violations.get(reason);
+    }
     private static String[] getUniqueReasons(){
         ArrayList<String> out = new ArrayList<>();
         for(Entry i : data){
