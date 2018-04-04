@@ -55,13 +55,9 @@ public class RouteController {
 //                            String.format(template, name));
 //    }
     @RequestMapping("/sort")
-    public boolean sort(){
+    public Entry[] sort(){
         Entry[] data = ExtractData.getData();
-
-
-        Sort.sort(data, 1);
-
-        return Sort.isSorted(data, 1);
+        return Filter.date(data,26);
     }
     
 }
