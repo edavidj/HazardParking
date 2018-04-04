@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 public class BinarySearch {
     private static int mid = 0;
-
     /**
         Option 1- Day of the Week
         Option 2- Violation Code
@@ -84,7 +83,6 @@ public class BinarySearch {
     }
 
     private static int convert(String s){
-
         switch (s){
             case "MONDAY":
                 return 1;

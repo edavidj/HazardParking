@@ -22,6 +22,7 @@ public class Filter {
     private static boolean ceiling = false;
 
     public static Entry[] day(Entry[] data, String filter){
+        floor = false; ceiling =false;
         Sort.sort(data, 4);
         top = BinarySearch.search(data, 0, 132850, filter, 1);
         bottom = top;
@@ -47,6 +48,7 @@ public class Filter {
     }
 
     public static Entry[] violationCode(Entry[] data, String filter){
+        floor = false; ceiling =false;
         Sort.sort(data, 3);
         top = BinarySearch.search(data, 0, 132850, filter, 2);
         bottom = top;
@@ -69,10 +71,10 @@ public class Filter {
             }
         }
         return Arrays.copyOfRange(data, bottom, top);
-
     }
 
     public static Entry[] date(Entry[] data, int filter){
+        floor = false; ceiling =false;
         LocalDateTime temp = LocalDateTime.of(2015,12,filter,0,0);
         Sort.sort(data, 1);
         top = BinarySearch.search(data, 0, 132850,temp,1);
@@ -99,6 +101,7 @@ public class Filter {
     }
 
     public static Entry[] hour(Entry[] data, int filter){
+        floor = false; ceiling =false;
         LocalDateTime temp = LocalDateTime.of(2015,12,1,filter,0);
         Sort.sort(data, 2);
         top = BinarySearch.search(data, 0, 132850, temp, 2);
@@ -123,5 +126,4 @@ public class Filter {
         }
         return Arrays.copyOfRange(data, bottom, top);
     }
-
 }

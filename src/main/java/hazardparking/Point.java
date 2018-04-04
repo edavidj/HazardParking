@@ -1,7 +1,9 @@
 package hazardparking;
 
 /**
- * @brief this class is an object for representing points in the heatmap
+ *  This class was for formalizing the heatmap points, although conversion to heatPoints notation is required before
+ *  sending back to the front end ([double longitude, double latitude, double intensity] )
+ * @author Ethan Johnston
  */
 public class Point {
     private double latitude;

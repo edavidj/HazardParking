@@ -1,8 +1,10 @@
 function openNav(){
-    $("#sidenav").css("width","250px");
+    $("#sidenav").css("display","block");
+    $("#searchInput").css("display","block");
 }
 function closeNav(){
-    $("#sidenav").css("width","0");
+    $("#sidenav").css("display","none");
+    $("#searchInput").css("display","none");
 }
 // ========== LEAFLET INITIALIZE ===========
 /**
@@ -28,3 +30,47 @@ $(document).ready(function(){ //once all elements have loaded calls this
         }
     });
 });
+$(".ui.search").search({
+    apiSettings:{
+        url:"/categories?q={query}",
+        onResponse: function(res){
+            console.log(res);
+            return {
+                results: res
+            }
+        }
+    },
+    type:"category",
+    showNoResults:"true"
+});
+$('.ui.accordion')
+    .accordion()
+;
+$("a.result").on("click",function(e){
+    searchHandler();
+});
+$("#searchInput").keydown(function(e){
+    if(e.which === 13){
+        searchHandler();
+    }
+});
+function searchHandler(){
+    var weekDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    var query = $("#searchInput").val();
+    var url = "/filter/violationCode";
+    if(weekDays.indexOf(query.toLowerCase()) !== -1){
+        url = "/filter/weekDay";
+    }
+    console.log(url);
+    $.ajax({
+        type:"GET",
+        url:url,
+        data:{
+            q: query
+        },
+        success: function(response){
+            console.log(response);
+            heat.setLatLngs(response);
+        }
+    });
+}
