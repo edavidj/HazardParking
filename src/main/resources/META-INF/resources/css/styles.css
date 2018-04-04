@@ -27,6 +27,7 @@ html{
 }
 #results{
     min-width: 150% !important;
+    z-index:10000000000000000001;
 }
 .ui.form{
     overflow-x:visible !important;
@@ -57,6 +58,9 @@ html{
 }
 .ui.form{
     width:85%;
+    min-height:10% !important;
+    max-height: 10% !important;
+    overflow-y:visible !important;
     overflow-x: visible;
     margin-left:10%;
     margin-top:5%;
