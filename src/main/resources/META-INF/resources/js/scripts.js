@@ -43,20 +43,81 @@ $(".ui.search").search({
     type:"category",
     showNoResults:"true"
 });
-$('.ui.accordion')
-    .accordion()
-;
-$("a.result").on("click",function(e){
-    searchHandler();
+$('.ui.accordion').accordion(); //init accordian drop down menu
+//selecting suggestion triggers search
+$(".results").on("click","a.result",function(e){
+    var selection = e.target.textContent;
+    searchHandler(selection);
 });
+//enter triggers search
 $("#searchInput").keydown(function(e){
     if(e.which === 13){
         searchHandler();
     }
 });
-function searchHandler(){
+//restricting the range
+$( function() {
+    $( "#from" ).datepicker({
+        minDate: new Date(2015, 12-1, 1),
+        maxDate: new Date(2015, 12-1, 31)
+    });
+    $( "#to" ).datepicker({
+        minDate: new Date(2015, 12-1, 1),
+        maxDate: new Date(2015, 12-1, 31)
+    });
+    $( "#on" ).datepicker({
+        minDate: new Date(2015, 12-1, 1),
+        maxDate: new Date(2015, 12-1, 31)
+    });
+} );
+$("#on").keydown(function(e){
+    if(e.which === 13){
+        searchDate();
+    }
+});
+//search on enter
+$("#from").keydown(function(e){
+    if(e.which === 13){
+        searchDateRange();
+    }
+});
+$("#to").keydown(function(e){
+    if(e.which === 13){
+        searchDateRange();
+    }
+});
+function searchDate(){
+    var input = $("#on").val();
+    $.ajax({
+        type: "GET",
+        url: "/filter/date",
+        data:{
+            q: input
+        },
+        success: function(response){
+            heat.setLatLngs(response);
+        }
+    });
+}
+function searchDateRange(){
+    var v = $("#from").val(),
+        w = $("#to").val();
+    if(v === "" || w === "") { return;}
+    $.ajax({
+        type: "GET",
+        url: "/filter/dateRange",
+        data:{
+            from: v,
+            to: w
+        },
+        success: function(response){
+            heat.setLatLngs(response);
+        }
+    });
+}
+function searchHandler(input){
     var weekDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    var query = $("#searchInput").val();
+    var query = input !== undefined ? input : $("#searchInput").val();
     var url = "/filter/violationCode";
     if(weekDays.indexOf(query.toLowerCase()) !== -1){
         url = "/filter/weekDay";

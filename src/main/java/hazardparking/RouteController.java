@@ -4,6 +4,9 @@
  */
 package hazardparking;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.springframework.core.io.ClassPathResource;
@@ -72,7 +75,6 @@ public class RouteController {
         Entry[] filtered = Filter.violationCode(data, code);
         return  ExtractData.convertEntriesToHeat(filtered);
     }
-
     /**
      * Filter heatpoints to a specific day of the week
      * @param day the day of the week that is being filtered by
@@ -82,6 +84,44 @@ public class RouteController {
     public double[][] filterByDay(@RequestParam(value="q") String day){
         Entry[] data = ExtractData.getData();
         Entry[] filtered = Filter.day(data, day);
+        return ExtractData.convertEntriesToHeat(filtered);
+    }
+
+    /**
+     * filter results to a specific date
+     * @param date the date being filtered for
+     * @return heat point items for the heatmap
+     * @throws Exception
+     */
+    @RequestMapping("/filter/date")
+    public double[][] filterByDate(@RequestParam(value="q") String date) throws Exception{
+        Entry[] data = ExtractData.getData();
+        //parse date object and get day of month, in the future would parse for day of the year.
+        date = date + " 00:00"; //default time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+        LocalDateTime simpleDate = LocalDateTime.parse(date, formatter);
+        int numDate = simpleDate.getDayOfMonth();
+        //filter results and send back to the front end
+        Entry[] filtered = Filter.date(data, numDate);
+        return ExtractData.convertEntriesToHeat(filtered);
+    }
+
+    /**
+     * Filter from start date to end date
+     * @param from start of the date range
+     * @param to end of the date range
+     * @return heat points that fit inside this range of dates
+     */
+    @RequestMapping("/filter/dateRange")
+    public double[][] filterByDateRange(@RequestParam(value="from") String from, @RequestParam(value="to") String to){
+        Entry[] data = ExtractData.getData();
+        int start = Integer.parseInt(from.split("/")[1]);
+        int end = Integer.parseInt(to.split("/")[1]);
+        Entry[] startFiltered = Filter.date(data,start);
+        Entry[] endFiltered = Filter.date(data, end);
+        ArrayList<Entry> x = new ArrayList<>(Arrays.asList(data));
+        System.out.println();
+        Entry[] filtered = Arrays.copyOfRange(data,x.indexOf(startFiltered[0]),x.indexOf(endFiltered[endFiltered.length - 1]) );
         return ExtractData.convertEntriesToHeat(filtered);
     }
     //============ UI ROUTES AND METHODS  ==============
