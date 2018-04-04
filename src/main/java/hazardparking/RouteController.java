@@ -50,14 +50,10 @@ public class RouteController {
      * @return
      */
     @RequestMapping("/sort")
-    public Entry[] sort(){
+    public boolean sort(){
         Entry[] data = ExtractData.getData();
-<<<<<<< HEAD
-        return Filter.date(data,26);
-=======
         Sort.sort(data, 1);
         return Sort.isSorted(data, 1);
->>>>>>> 625463972b44d510ea911c2741e4c451b273333c
     }
     //========= FILTER ROUTES ===============
     // follow convention /filter/<filter-topic-here>
