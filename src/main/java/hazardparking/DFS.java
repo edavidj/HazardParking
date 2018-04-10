@@ -2,7 +2,7 @@ package hazardparking;
 
 import java.util.List;
 /**
- * create a list of strings of all path from start point to end point
+ * Input a list of strings of all path from start point to end point to a empty list
  * @author Kunyuan Cao
  *
  */
