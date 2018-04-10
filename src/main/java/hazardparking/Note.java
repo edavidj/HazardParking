@@ -66,5 +66,8 @@ public class Note {
 	{
 		note.add(n);
 	}
+	public List<Note> adj(){
+		return note;
+	}
 
 }

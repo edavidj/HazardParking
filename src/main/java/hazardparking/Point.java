@@ -26,6 +26,9 @@ public class Point {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+    public boolean equals(Point other){
+        return this.latitude == other.getLatitude() && this.longitude == other.getLongitude();
+    }
     public double[] getHeatPoint(){
         double [] out = {this.longitude, this.latitude, this.intensity};
         return out;

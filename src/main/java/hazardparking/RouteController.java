@@ -124,6 +124,21 @@ public class RouteController {
         Entry[] filtered = Arrays.copyOfRange(data,x.indexOf(startFiltered[0]),x.indexOf(endFiltered[endFiltered.length - 1]) );
         return ExtractData.convertEntriesToHeat(filtered);
     }
+    @RequestMapping("/graph")
+    public String graph(){
+        Entry[] data = ExtractData.getData();
+        HashMap<Point, LinkedList<String>> count = new HashMap<>();
+        for(Entry e : data) {
+            Point p = new Point(e.getY(), e.getX(), 0.5);
+            LinkedList<String> violations = count.get(p);
+            if(!violations.contains(e.getViolationReason())){
+                violations.add(e.getViolationReason());
+                count.put(p, violations);
+            }
+        }
+
+
+    }
     //============ UI ROUTES AND METHODS  ==============
     /**
      * Gets the suggestions for the input text box and formats them for the front end frameworks dropdown tool
