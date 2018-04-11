@@ -55,5 +55,48 @@ public class TestApp {
 		Sort.sort(testdata, 4);
         assertTrue(Sort.isSorted(testdata, 4));
 	}
-	
+
+	@Test
+	public void testFilterDay(){
+		Entry[] filtered = Filter.day(testdata, "MONDAY");
+		boolean test = true;
+		for (int i = 0; i < filtered.length; i++){
+			if (filtered[i].getDay() != "MONDAY")
+				test = false;
+		}
+		assertTrue(test);
+	}
+
+	@Test
+	public void testFilterViolationCode(){
+		Entry[] filtered = Filter.violationCode(testdata, "P003");
+		boolean test = true;
+		for (int i = 0; i < filtered.length; i++){
+			if (filtered[i].getViolationCode() != "P003")
+				test = false;
+		}
+		assertTrue(test);
+	}
+
+	@Test
+	public void testFilterDate(){
+		Entry[] filtered = Filter.date(testdata, 23);
+		boolean test = true;
+		for (int i = 0; i < filtered.length; i++){
+			if (filtered[i].getDate().getDayOfMonth() != 23)
+				test = false;
+		}
+		assertTrue(test);
+	}
+
+	@Test
+	public void testFilterHour(){
+		Entry[] filtered = Filter.day(testdata, 9);
+		boolean test = true;
+		for (int i = 0; i < filtered.length; i++){
+			if (filtered[i].getDate().getHour() != 9)
+				test = false;
+		}
+		assertTrue(test);
+	}
 }
