@@ -1,57 +1,47 @@
 package hazardparking;
 
-import java.util.List;
-/**
- * Input a list of strings of all path from start point to end point to a empty list
- * @author Kunyuan Cao
- *
- */
+import java.util.ArrayList;
+import java.util.Stack;
+
+//Based on implementation by algs4 Princeton website
+
 public class DFS {
-	/**
-	 * 
-	 * @param g graph
-	 * @param path empty list to store string of paths
-	 * @param start startpoint
-	 * @param fin endpoint
-	 */
-	public static void path(Graph g,List<String> path,Note start,Note fin)
-	{
-		String p="";
-		boolean[] mark= new boolean[g.V()];
-		for(int i=0;i<g.V();i++)
-		{mark[i]=false;}
-		dfs(g,path,p,mark,start,fin);
+	
+	private boolean[] marked;
+	private int[] edgeTo;
+	private final int s;
+	
+	public DFS(Graph G, int s) {
+		marked = new boolean[G.V()];
+		edgeTo = new int[G.V()];
+		this.s = s;
+		dfs(G, s);
 	}
-	/**
-	 * Recrusion to search all possible paths 
-	 * @param g graph
-	 * @param path list to store string of paths
-	 * @param p the string of paths
-	 * @param mark the array of boolean to store if a place is visited
-	 * @param start current start point
-	 * @param fin  end point
-	 */
-	private static void dfs(Graph g,List<String> path,String p,boolean[] mark,Note start,Note fin)
+	
+	private void dfs(Graph G, int v)
 	{
-		mark[start.index()]=true;
-		p=p+start.name()+" ";
-		if(start.name().equals(fin.name()))
+		marked[v] = true;
+		for (int w : G.adj(v))
 		{
-			path.add(p);
-		}
-		else
-		{
-			for(int i=0;i<start.adj().size();i++)
+			if (!marked[w])
 			{
-				if(!mark[start.adj().get(i).index()])
-				{
-					String s1=p;
-					dfs(g,path,s1,mark,start.adj().get(i),fin);
-				}
+				edgeTo[w] = v;
+				dfs(G, w);
 			}
 		}
-		mark[start.index()]=false;
-		
 	}
+
+	public ArrayList<Integer> pathTo(int v) {
+        Stack<Integer> path = new Stack<Integer>();
+        ArrayList<Integer> intpath = new ArrayList<Integer>();
+        for (int x = v; x != s; x = edgeTo[x]) {
+        	path.push(x);
+        }
+        path.push(s);
+        while (!path.isEmpty()) {
+        	intpath.add(path.pop());
+        }
+        return intpath;
+    }
 
 }
