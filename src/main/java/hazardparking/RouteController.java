@@ -55,9 +55,15 @@ public class RouteController {
     @RequestMapping("/sort")
     public boolean sort(){
         Entry[] data = ExtractData.getData();
-        Sort.sort(data, 1);
-        return Sort.isSorted(data, 1);
+        Sort.sort(data, 4);
+        return Sort.isSorted(data, 4);
     }
+    
+    @RequestMapping("/path")
+    public String path() throws Exception{
+        //your methods
+        return FindPath.findPath();
+    } 
     //========= FILTER ROUTES ===============
     // follow convention /filter/<filter-topic-here>
     /**
@@ -124,6 +130,8 @@ public class RouteController {
         Entry[] filtered = Arrays.copyOfRange(data,x.indexOf(startFiltered[0]),x.indexOf(endFiltered[endFiltered.length - 1]) );
         return ExtractData.convertEntriesToHeat(filtered);
     }
+    
+    /*
     @RequestMapping("/graph")
     public String graph(){
         Entry[] data = ExtractData.getData();
@@ -139,6 +147,7 @@ public class RouteController {
 
 
     }
+    */
     //============ UI ROUTES AND METHODS  ==============
     /**
      * Gets the suggestions for the input text box and formats them for the front end frameworks dropdown tool
