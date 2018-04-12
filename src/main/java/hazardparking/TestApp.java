@@ -60,9 +60,10 @@ public class TestApp {
 	public void testFilterDay(){
 		Entry[] filtered = Filter.day(testdata, "MONDAY");
 		boolean test = true;
-		for (int i = 0; i < filtered.length; i++){
-			if (filtered[i].getDay() != "MONDAY")
+		for (int i = 0; i < filtered.length; i++) {
+			if (!filtered[i].getDay().equals("MONDAY")) {
 				test = false;
+			}
 		}
 		assertTrue(test);
 	}
@@ -72,7 +73,7 @@ public class TestApp {
 		Entry[] filtered = Filter.violationCode(testdata, "P003");
 		boolean test = true;
 		for (int i = 0; i < filtered.length; i++){
-			if (filtered[i].getViolationCode() != "P003")
+			if (!filtered[i].getViolationCode().equals("P003"))
 				test = false;
 		}
 		assertTrue(test);
