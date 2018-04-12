@@ -91,7 +91,7 @@ public class TestApp {
 
 	@Test
 	public void testFilterHour(){
-		Entry[] filtered = Filter.day(testdata, 9);
+		Entry[] filtered = Filter.hour(testdata, 9);
 		boolean test = true;
 		for (int i = 0; i < filtered.length; i++){
 			if (filtered[i].getDate().getHour() != 9)

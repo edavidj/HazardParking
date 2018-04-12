@@ -18,8 +18,8 @@ public class ExtractData  {
         data = extract(); //read data from csv
         Violations = new HashMap<>();
         //set exported variables
-        violationReasons = getUniqueReasons();
-        violationCodes = getUniqueCodes();
+        violationReasons = setUniqueReasons();
+        violationCodes = setUniqueCodes();
         setViolationData();
     }
     private static Entry[] extract() throws Exception{
@@ -58,23 +58,14 @@ public class ExtractData  {
     public static Entry[] getData() {
         return data;
     }
-    public static Entry getIndex(int index){
+    public static Entry getEntry(int index){
 	    return data[index];
-    }
-    public static void setData(Entry[] newData) {
-        data = newData;
     }
     public static String[] getViolationReasons() {
         return violationReasons;
     }
     public static String[] getViolationCodes() {
         return violationCodes;
-    }
-    public static void setViolationReasons(String[] violationReasons) {
-        ExtractData.violationReasons = violationReasons;
-    }
-    public static void setViolationCodes(String[] violationCodes) {
-        ExtractData.violationCodes = violationCodes;
     }
 
     /**
@@ -101,7 +92,7 @@ public class ExtractData  {
      * used on init to create array of reasons which is used for searching and suggesting items on frontend
      * @return array of the unique violation reasons
      */
-    private static String[] getUniqueReasons(){
+    private static String[] setUniqueReasons(){
         ArrayList<String> out = new ArrayList<>();
         for(Entry i : data){
             if(!out.contains(i.getViolationReason()))
@@ -113,7 +104,7 @@ public class ExtractData  {
      * used on init to create array of codes which is used for searching and suggesting items on frontend
      * @return array of the unique violation codes
      */
-    private static String[] getUniqueCodes(){
+    private static String[] setUniqueCodes(){
         ArrayList<String> out = new ArrayList<>();
         for(Entry i : data){
             if(!out.contains(i.getViolationCode()))

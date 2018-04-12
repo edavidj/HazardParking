@@ -8,59 +8,59 @@ import java.util.ArrayList;
  *
  */
 public class Sort {
-	public static Entry[] aux;
+	private static Entry[] aux;
 	/**
 	 * exported sorting function calls on recursive version
-	 * @param a Entry[] array to be sorted
+	 * @param data Entry[] array to be sorted
 	 * @param option interface being sorted
 	 */
-	public static void sort(Entry[] a, int option){
-		aux = new Entry[a.length];
-		sort(a, 0, a.length-1, option);
+	public static void sort(Entry[] data, int option){
+		aux = new Entry[data.length];
+		sort(data, 0, data.length-1, option);
 	}
 	/**
 	 * recursive merge sort function
-	 * @param a Entry[] array to be sorted
+	 * @param data Entry[] array to be sorted
 	 * @param low int lower end of bounds
 	 * @param high int upper end of bounds
 	 * @param option interface being compared
 	 */
-	private static void sort(Entry[] a, int low, int high, int option){
+	private static void sort(Entry[] data, int low, int high, int option){
 		if(high <= low) return; //base case for finished sorting
 		int mid = low +(high-low)/2;
 		//divide into parts and sort
-		sort(a, low, mid, option);
-		sort(a, mid+1, high, option);
+		sort(data, low, mid, option);
+		sort(data, mid+1, high, option);
 		//merge divided parts after sort
-		merge(a, low, mid, high, option);
+		merge(data, low, mid, high, option);
 	}
 	/**
 	 * merge sorted section of the array
-	 * @param a LocalDateTime[] array having sections merged
+	 * @param data LocalDateTime[] array having sections merged
 	 * @param low lower end of bounds
 	 * @param mid divide between two sections being merged
 	 * @param high upper end of the bounds
 	 * @param option interface being compared
 	 */
-	public static void merge(Entry[] a, int low, int mid, int high, int option){
+	private static void merge(Entry[] data, int low, int mid, int high, int option){
 		int i = low; int j = mid+1;
 		//clone array into temp
 		for(int k = low; k <= high; k++){
-			aux[k] = a[k];
+			aux[k] = data[k];
 		}
 		//modify array to merge sections
 		for(int k = low; k <= high; k++){
 			if (i > mid) {
-				a[k] = aux[j++];
+				data[k] = aux[j++];
 			}
 			else if(j > high) {
-				a[k] = aux[i++];
+				data[k] = aux[i++];
 			}
 			else if (less(aux[j], aux[i], option)) {
-				a[k] = aux[j++];
+				data[k] = aux[j++];
 			}
 			else {
-				a[k] = aux[i++];
+				data[k] = aux[i++];
 			}
 
 		}
@@ -72,7 +72,7 @@ public class Sort {
 	 * @param option how it is being compared
 	 * @return true if less false if not
 	 */
-	public static boolean less(Entry a, Entry b, int option) {
+	private static boolean less(Entry a, Entry b, int option) {
 
 		if (option == 1)	// option 1 is comparing LocalDateTime of both objects
 		{
@@ -103,13 +103,13 @@ public class Sort {
 	}
 	/**
 	 * utility method for checking if the array is sorted
-	 * @param a Entry[] array being checked
+	 * @param data Entry[] array being checked
 	 * @param option how it is compared
 	 * @return true if sorted and false if not
 	 */
-	public static boolean isSorted(Entry[] a, int option) {
-		for (int i = 1; i <= a.length-1; i++) {
-			if (less(a[i],a[i-1], option)) {
+	public static boolean isSorted(Entry[] data, int option) {
+		for (int i = 1; i <= data.length-1; i++) {
+			if (less(data[i],data[i-1], option)) {
 				return false;
 			}
 		}
