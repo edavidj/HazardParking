@@ -1,5 +1,5 @@
 # HazardParking
-Create an interactive heatmap of parking tickets in a region. 
+Create an interactive heatmap of parking tickets in a region. Project designed for the final project in McMaster CS second year course 2XB3 Cs Practice & Exp:Theory To Practice. Currently only covers the region of Washington DC, as that's all our dataset had data on; as per project guidelines we were restricted in data sources. That said we have no plans to expand that scope.
 
 ## Set-up working environment
 #### Using *Intellij IDEA*
